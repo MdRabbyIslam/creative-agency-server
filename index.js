@@ -41,6 +41,10 @@ client.connect((err) => {
   const reviewCollection = client
     .db(`${process.env.DB_NAME}`)
     .collection("review");
+  //message collection
+  const messageCollection = client
+    .db(`${process.env.DB_NAME}`)
+    .collection("message");
   console.log("database connected");
 
   app.post("/uploadImg", (req, res) => {
@@ -71,7 +75,14 @@ client.connect((err) => {
   });
 
   app.post("/addReview", (req, res) => {
-    reviewCollection.insertOne(req.body).then((result) => {
+    messageCollection.insertOne(req.body).then((result) => {
+      res.send(result.insertedCount > 0);
+      console.log(result);
+    });
+  });
+
+  app.post("/addMessage", (req, res) => {
+    messageCollection.insertOne(req.body).then((result) => {
       res.send(result.insertedCount > 0);
       console.log(result);
     });
