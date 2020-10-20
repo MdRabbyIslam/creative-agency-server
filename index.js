@@ -75,7 +75,7 @@ client.connect((err) => {
   });
 
   app.post("/addReview", (req, res) => {
-    messageCollection.insertOne(req.body).then((result) => {
+    reviewCollection.insertOne(req.body).then((result) => {
       res.send(result.insertedCount > 0);
       console.log(result);
     });
